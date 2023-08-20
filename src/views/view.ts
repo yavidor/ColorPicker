@@ -13,8 +13,7 @@ window.onload = () => {
     body: JSON.stringify(
       { first_name: firstName.value, last_name: lastName.value, color: picker.value },
     ),
-  })
-    .then(
-      async (a: Response) => console.log(await a.text()),
-    ));
+  }).then(
+    async (res: Response) => console.log(await res.text()),
+  ));
 };

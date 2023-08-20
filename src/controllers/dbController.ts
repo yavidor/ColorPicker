@@ -1,4 +1,3 @@
-// import path from "path";
 import Router, { Response, Request } from "express";
 import { createEntity, readEntity, deleteEntity } from "../models/dbModel";
 
