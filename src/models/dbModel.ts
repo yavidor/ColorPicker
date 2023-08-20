@@ -4,10 +4,12 @@ const url = "mongodb://localhost:27017";
 const client = new MongoClient(url);
 const dbName = "main";
 const db = client.db(dbName);
-const collection = db.collection("results");
+const collectionName = "results";
+const collection = db.collection(collectionName);
 
-const readEntity = async (id: string) => {
-  const found = await collection.find({ _id: new ObjectId(id) }).toArray();
+const readEntity = async (id?: string) => {
+  await client.connect();
+  const found = await collection.find(id ? { _id: new ObjectId(id) } : {}).toArray();
   await client.close();
   return found.length ? found : "No entities found";
 };
