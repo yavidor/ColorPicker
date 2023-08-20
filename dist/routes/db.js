@@ -3,18 +3,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const path_1 = __importDefault(require("path"));
+// import path from "path";
 const express_1 = __importDefault(require("express"));
-const htmlRouter = (0, express_1.default)();
-const publicDirectoryPath = path_1.default.join(__dirname, "../../public");
-htmlRouter.get("/", (req, res) => {
-    res.sendFile(path_1.default.join(publicDirectoryPath, "index.html"));
-    console.log(req.hostname);
+const mongodb_1 = require("mongodb");
+const url = "mongodb://localhost:27017";
+const client = new mongodb_1.MongoClient(url);
+const dbName = "main";
+async function main() {
+    await client.connect();
+    console.log("connected");
+    const db = client.db(dbName);
+    const collection = db.collection("mainCollection");
+    const findResult = await collection.find({}).toArray();
+    console.log("Found documents =>", findResult);
+    return "done.";
+}
+const dbRouter = (0, express_1.default)();
+dbRouter.post("/add", (req, res) => {
+    // console.log(req.);
+    main().then(console.log).catch(console.error).finally(() => client.close());
+    res.send("THANKS\n");
 });
-htmlRouter.get("/view.js", (req, res) => {
-    res.sendFile(path_1.default.join(__dirname, "../views/view.js"));
-});
-htmlRouter.get("/main.css", (req, res) => {
-    res.sendFile(path_1.default.join(publicDirectoryPath, "main.css"));
-});
-exports.default = htmlRouter;
+exports.default = dbRouter;
