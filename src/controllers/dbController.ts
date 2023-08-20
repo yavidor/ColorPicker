@@ -1,11 +1,14 @@
 // import path from "path";
 import Router, { Response, Request } from "express";
-import main from "../models/dbModel";
+import { createEntity, readEntity, deleteEntity } from "../models/dbModel";
 
 const dbRouter = Router();
-dbRouter.post("/add", (req: Request, res: Response) => {
-  console.log(req.body);
-  main().then(console.log).catch(console.error);
-  res.status(418).send("THANKS\n");
-});
+
+dbRouter.get("/read/:id", async (req: Request, res: Response) => res.send(await readEntity(req.params.id)));
+
+dbRouter.post("/add", async (req: Request, res: Response) => res.send(await createEntity(req.body)));
+
+dbRouter.delete("/delete", async (req: Request, res: Response) => res.send(await deleteEntity(req.body).then(console.log)
+  .catch(console.error)));
+
 export default dbRouter;

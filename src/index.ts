@@ -9,9 +9,8 @@ const app = express();
 
 const port = process.env.PORT;
 
-app.use(bodyParser.text());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 app.use("/", htmlRouter);
 app.use("/db", dbRouter);
 

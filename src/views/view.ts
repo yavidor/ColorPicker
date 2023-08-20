@@ -1,6 +1,8 @@
 // import { fetch } from 'node-fetch'
 window.onload = () => {
-  const picker = document.getElementById("colorpicker")!;
+  const picker = document.getElementById("colorpicker")! as HTMLInputElement;
+  const firstName = document.getElementById("firstName")! as HTMLInputElement;
+  const lastName = document.getElementById("lastName")! as HTMLInputElement;
   const submit = document.getElementById("submit")!;
   picker.addEventListener("change", (event) => (
     console.log((event.target as HTMLInputElement).value)
@@ -8,10 +10,11 @@ window.onload = () => {
   submit.addEventListener("click", () => fetch("http://localhost:8080/db/add", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      foo: "bar",
-    }),
-  }).then(
-    async (a: Response) => console.log(await a.text()),
-  ));
+    body: JSON.stringify(
+      { first_name: firstName.value, last_name: lastName.value, color: picker.value },
+    ),
+  })
+    .then(
+      async (a: Response) => console.log(await a.text()),
+    ));
 };
