@@ -11,7 +11,7 @@ const readEntity = async (id?: string) => {
   await client.connect();
   const found = await collection.find(id ? { _id: new ObjectId(id) } : {}).toArray();
   await client.close();
-  return found.length ? found : "No entities found";
+  return found.length !== 0 ? { message: found } : { message: "No entities found" };
 };
 
 const createEntity = async (entity: mongoDocument) => {
@@ -21,11 +21,11 @@ const createEntity = async (entity: mongoDocument) => {
   return inserted.insertedId;
 };
 
-const deleteEntity = async (entity: mongoDocument) => {
+const deleteEntity = async () => {
   await client.connect();
-  const deleted = await collection.deleteOne(entity);
+  const deleted = await collection.deleteMany({});
   await client.close();
-  return deleted.deletedCount;
+  return { deleted: deleted.deletedCount };
 };
 
 export { createEntity, readEntity, deleteEntity };
