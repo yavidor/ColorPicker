@@ -23,11 +23,11 @@ window.onload = () => {
       console.log(tableContainer, table, headersRow, entity);
     });
   };
-  buttonGet.addEventListener("click", () => fetch("http://localhost:8080/db/read").then((res: Response) => res.json()).then(drawTable));
+  buttonGet.addEventListener("click", () => fetch("/db/read").then((res: Response) => res.json()).then(drawTable));
   // buttonDelete.addEventListener("click", () => fetch("http://localhost:8080/db/delete", {
   //   method: "DELETE",
   // }).then((res: Response) => res.json()).then(console.log));
-  submit.addEventListener("click", () => fetch("http://localhost:8080/db/add", {
+  submit.addEventListener("click", () => fetch("/db/add", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(
