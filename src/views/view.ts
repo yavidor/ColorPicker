@@ -15,11 +15,41 @@ window.onload = () => {
   const drawTable = ({ message }: Get) => {
     console.log(message);
     console.log(typeof message);
-    const tableContainer = document.getElementById("table-container")!;
-    const table = document.createElement("table")!;
+    // const tableContainer = document.getElementById("table-container")!;
+    const table = document.getElementById("myTable")!;
     const headersRow = document.createElement("tr")!;
+    const idHeader = document.createElement("th");
+    idHeader.innerText = "_id";
+    const firstNameHeader = document.createElement("th");
+    firstNameHeader.innerText = "first_name";
+    const lastNameHeader = document.createElement("th");
+    lastNameHeader.innerText = "last_name";
+    const colorHeader = document.createElement("th");
+    colorHeader.innerText = "color";
+    headersRow.appendChild(idHeader);
+    headersRow.appendChild(firstNameHeader);
+    headersRow.appendChild(lastNameHeader);
+    headersRow.appendChild(colorHeader);
+    table.appendChild(headersRow);
     (message as Array<Entity>).forEach((entity) => {
-      console.log(tableContainer, table, headersRow, entity);
+      console.log(table, headersRow, entity);
+      const row = document.createElement("tr");
+      const idCell = document.createElement("td");
+      // eslint-disable-next-line no-underscore-dangle
+      idCell.innerText = entity._id;
+      const firstNameCell = document.createElement("td");
+      firstNameCell.innerText = entity.first_name;
+      const lastNameCell = document.createElement("td");
+      lastNameCell.innerText = entity.last_name;
+      const colorCell = document.createElement("td");
+      colorCell.innerText = entity.color;
+      row.appendChild(idCell);
+      row.appendChild(firstNameCell);
+      row.appendChild(lastNameCell);
+      row.appendChild(colorCell);
+      table.appendChild(row);
+
+      // headersRow.
     });
   };
   buttonGet.addEventListener("click", () => fetch("http://localhost:8080/db/read").then((res: Response) => res.json()).then(drawTable));
