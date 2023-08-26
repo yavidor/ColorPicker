@@ -1,12 +1,12 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: node-service
+  name: colorpicker
 spec:
   selector:
-    app: Selector Label
+    app: colorpicker
   type: ClusterIP
   ports:
-    - name: nodeIP
+    - name: colorpickerport
       port: 8080
       targetPort: 8080

@@ -15,16 +15,16 @@ spec:
     spec:
       containers:
       - name: mongodb-server
-        image: mongodb
+        image: mongo
         ports:
         - containerPort: 27017
           name: mongodbaccess
         volumeMounts:
-        - name: dbMount
+        - name: dbmount
           mountPath: /data/db
   volumeClaimTemplates:
   - metadata:
-      name: dbMount
+      name: dbmount
     spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:

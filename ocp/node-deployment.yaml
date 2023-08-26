@@ -13,10 +13,11 @@ spec:
     spec:
       containers:
       - name: colorpicker
-        image: colorpicker:1.0.0
+        image: yavidor/colorpicker:1.0.0
         resources:
           limits:
             memory: "128Mi"
             cpu: "500m"
         ports:
         - containerPort: 8080
+        imagePullPolicy: Always
