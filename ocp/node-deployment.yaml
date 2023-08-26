@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: colorpicker
+spec:
+  selector:
+    matchLabels:
+      app: colorpicker
+  template:
+    metadata:
+      labels:
+        app: colorpicker
+    spec:
+      containers:
+      - name: colorpicker
+        image: yavidor/colorpicker:1.0.0
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
+        imagePullPolicy: Always

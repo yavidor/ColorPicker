@@ -1,6 +1,6 @@
 import { Document as mongoDocument, MongoClient, ObjectId } from "mongodb";
 
-const url = "mongodb://localhost:27017";
+const url = "mongodb://mongodb-service:27017";
 const client = new MongoClient(url);
 const dbName = "main";
 const db = client.db(dbName);
